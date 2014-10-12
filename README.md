@@ -1,4 +1,4 @@
-##  pygnip - Another Python library for GNIP
+##  pygnip - Another Python wrapper for GNIP
 
 A Python client wrapper for the GNIP API's with optional Django integration.
 
