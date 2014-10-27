@@ -1,5 +1,6 @@
 import requests
 import json
+import logging
 
 try:
     from django.conf import settings
@@ -7,6 +8,8 @@ try:
     PYGNIP_CONFIG = settings.PYGNIP_CONFIG
 except (ImportError, AttributeError, ImproperlyConfigured):
     from settings import PYGNIP_CONFIG
+
+logger = logging.getLogger(__name__)
 
 
 class Config(object):
@@ -58,27 +61,34 @@ class AllAPIs(object):
         self.config = Config(config=kwargs.get('config', 'DEFAULT'))
 
     def get_connection(self, **kwargs):
-        return requests.get(self.base_api_url,
-                            auth=(self.config.username,
-                                  self.config.password),
-                            params=kwargs
-                            )
+        try:
+            return requests.get(self.base_api_url,
+                                auth=(self.config.username,
+                                      self.config.password),
+                                params=kwargs
+                                )
+        except Exception as e:
+            logger.error(e)
 
     def post_connection(self, **kwargs):
-        return requests.post(self.base_api_url,
-                             auth=(self.config.username,
-                                   self.config.password),
-                             data=json.dumps(kwargs,
-                                             ensure_ascii=False)
-                             )
+        try:
+            return requests.post(self.base_api_url,
+                                 auth=(self.config.username,
+                                       self.config.password),
+                                 data=json.dumps(kwargs, ensure_ascii=False)
+                                 )
+        except Exception as e:
+            logger.error(e)
 
     def delete_connection(self, **kwargs):
-        return requests.delete(self.base_api_url,
-                               auth=(self.config.username,
-                                     self.config.password),
-                               data=json.dumps(kwargs,
-                                               ensure_ascii=False)
-                               )
+        try:
+            return requests.delete(self.base_api_url,
+                                   auth=(self.config.username,
+                                         self.config.password),
+                                   data=json.dumps(kwargs, ensure_ascii=False)
+                                   )
+        except Exception as e:
+            logger.error(e)
 
     def api(self, api):
         try:
@@ -150,7 +160,7 @@ class _SearchAPI(AllAPIs):
         first_iteration = True
 
         while True:
-            if first_iteration:
+            if first_iteration and 'next' in gnip_response:
                 first_iteration = False
                 yield gnip_response
             elif 'next' in gnip_response:
@@ -158,6 +168,7 @@ class _SearchAPI(AllAPIs):
                 gnip_response = self.post_connection(**kwargs).json()
                 yield gnip_response
             else:
+                first_iteration = False
                 yield gnip_response
                 break
 
