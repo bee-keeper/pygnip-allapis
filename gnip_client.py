@@ -166,9 +166,12 @@ class _SearchAPI(AllAPIs):
             elif 'next' in gnip_response:
                 kwargs['next'] = gnip_response['next']
                 gnip_response = self.post_connection(**kwargs).json()
-                yield gnip_response
+                if 'next' not in gnip_response:
+                    yield gnip_response
+                    break
+                else:
+                    yield gnip_response
             else:
-                first_iteration = False
                 yield gnip_response
                 break
 
