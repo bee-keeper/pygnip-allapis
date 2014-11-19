@@ -41,7 +41,6 @@ PYGNIP_CONFIG = {
 
 
 ```
-
 pip install pygnip-allapis
 
 from pygnip_allapis import gnip_client
@@ -51,11 +50,12 @@ client = gnip_client.AllAPIs(config=DEFAULT)
 
 ####Query the usage API
 
-`
+```
 client.api('UsageAPI').get_usage(bucket='',
                                  fromDate='',
                                  toDate='')
-`
+
+```
 
 ####Query the Search Count API
 
