@@ -1,4 +1,4 @@
-##  pygnip - Another Python wrapper for GNIP
+##  pygnip-allapis - Another Python wrapper for GNIP
 
 A Python client wrapper for the GNIP API's with optional Django integration.
 
@@ -18,8 +18,8 @@ Currently implemented:
 
 This package contains a sample config file (_gnip_config.ini).
 
-pygnip needs one of the following configuration options:
-  * A gnip_config.ini file in the pygnip directory
+pygnip-allapis needs one of the following configuration options:
+  * A gnip_config.ini file in the pygnip-allapis directory
   * A gnip_config.ini file in ~/.config
   * A correctly configured dictionary in Django settings.py (see below)
 
@@ -39,63 +39,62 @@ PYGNIP_CONFIG = {
 
 ###Usage
 
-Create a client (by default pygnip uses 'config=DEFAULT')
+Create a client (by default pygnip-allapis uses 'config=DEFAULT')
 
-```client = gnip_client.AllAPIs()```
+`client = gnip_client.AllAPIs()`
 
 ####Query the usage API
 
-```
+`
 client.api('UsageAPI').get_usage(bucket='',
                                  fromDate='',
                                  toDate='')
-```
+`
 
 ####Query the Search Count API
 
-```
+`
 client.api('SearchAPICount').search_count(query='',
                                           publisher='twitter',
                                           fromDate='',
                                           toDate='',
                                           bucket=''))
-```
+`
 
 ####Query the Search API
 
-```
+`
 client.api('SearchAPI').max_results_only(query='',
                                          publisher='twitter',
                                          fromDate='',
                                          toDate='',
                                          maxResults='10')
-```
+`
 
-For queries which require pagination (ie repeated calls to GNIP with 'next'), you can query ```all_results()``` which returns a python list of all results from memory or alternatively the generator method ```iterate_all_results()```
+For queries which require pagination (ie repeated calls to GNIP with 'next'), you can query `all_results()` which returns a python list of all results from memory or alternatively use the generator method `iterate_all_results()` which will continue to make calls to gnip until your request is delivered.
 
-```
+`
 results = client.api('SearchAPI').iterate_all_results(query='',
                                                    publisher='twitter',
                                                    fromDate='',
                                                    toDate='',
-                                                   maxResults=20
+                                                   maxResults=500
                                                   )
-results.next() 
-for r in result:
+for r in results:
     # do something
-```
+`
 
 ####Post a Powertrack rule
 
-```client.api('PowertrackAPIRules').post_rule(value='test_rule', tag='test_rules')```
+`client.api('PowertrackAPIRules').post_rule(value='test_rule', tag='test_rules')`
 
 ####Query Powertrack rules
 
-```client.api('PowertrackAPIRu	les').get_rules()```
+`client.api('PowertrackAPIRu	les').get_rules()`
 
 ####Delete a Powertrack rule
 
-```self.client.api('PowertrackAPIRules').delete_rule(value='test_rule', tag='test_rules'))```
+`self.client.api('PowertrackAPIRules').delete_rule(value='test_rule', tag='test_rules'))`
 
 ###Handling Responses
 
@@ -105,4 +104,4 @@ pygnip uses the Requests library and by default decodes all json responses using
 
 To run the test suite
 
-``` python tests ```
+` python tests `
