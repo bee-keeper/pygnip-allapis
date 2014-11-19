@@ -77,7 +77,7 @@ client.api('SearchAPI').max_results_only(query='',
                                          maxResults='10')
 ```
 
-For queries which require pagination (ie repeated calls to GNIP with 'next'), you can query `all_results()` which returns a python list of all results from memory or alternatively use the generator method `iterate_all_results()` which will continue to make calls to gnip until your request is delivered.
+For queries which require pagination (ie repeated calls to GNIP with 'next'), you can query `all_results()` which builds a python list in memory and returns.  Alternatively you can use the generator from `iterate_all_results()` which will keep getting pages until your request is completed.
 
 ```
 results = client.api('SearchAPI').iterate_all_results(query='',
