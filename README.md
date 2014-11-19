@@ -53,27 +53,27 @@ client.api('UsageAPI').get_usage(bucket='',
 
 ####Query the Search Count API
 
-`
+```
 client.api('SearchAPICount').search_count(query='',
                                           publisher='twitter',
                                           fromDate='',
                                           toDate='',
                                           bucket=''))
-`
+```
 
 ####Query the Search API
 
-`
+```
 client.api('SearchAPI').max_results_only(query='',
                                          publisher='twitter',
                                          fromDate='',
                                          toDate='',
                                          maxResults='10')
-`
+```
 
 For queries which require pagination (ie repeated calls to GNIP with 'next'), you can query `all_results()` which returns a python list of all results from memory or alternatively use the generator method `iterate_all_results()` which will continue to make calls to gnip until your request is delivered.
 
-`
+```
 results = client.api('SearchAPI').iterate_all_results(query='',
                                                    publisher='twitter',
                                                    fromDate='',
@@ -82,7 +82,7 @@ results = client.api('SearchAPI').iterate_all_results(query='',
                                                   )
 for r in results:
     # do something
-`
+```
 
 ####Post a Powertrack rule
 
