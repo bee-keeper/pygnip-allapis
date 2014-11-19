@@ -39,9 +39,15 @@ PYGNIP_CONFIG = {
 
 ###Usage
 
-Create a client (by default pygnip-allapis uses 'config=DEFAULT')
 
-`client = gnip_client.AllAPIs()`
+```
+
+pip install pygnip-allapis
+
+from pygnip_allapis import gnip_client
+client = gnip_client.AllAPIs(config=DEFAULT)
+
+```
 
 ####Query the usage API
 

@@ -6,8 +6,8 @@ try:
     from django.conf import settings
     from django.core.exceptions import ImproperlyConfigured
     PYGNIP_CONFIG = settings.PYGNIP_CONFIG
-except (ImportError, AttributeError, ImproperlyConfigured):
-    from settings import PYGNIP_CONFIG
+except (ImportError, AttributeError):
+    from .settings import PYGNIP_CONFIG
 
 logger = logging.getLogger(__name__)
 
