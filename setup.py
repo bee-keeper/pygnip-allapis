@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
   name = 'pygnip-allapis',
   packages = ['pygnip_allapis'],
-  version = '0.4',
+  version = '0.5',
   description = 'A wrapper around the GNIP APIs',
   author = 'https://github.com/bee-keeper',
   author_email = 'none@none.com',

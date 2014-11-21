@@ -75,7 +75,7 @@ class AllAPIs(object):
             return requests.post(self.base_api_url,
                                  auth=(self.config.username,
                                        self.config.password),
-                                 data=json.dumps(kwargs, ensure_ascii=False)
+                                 data=json.dumps(kwargs, ensure_ascii=False).encode('utf8')
                                  )
         except Exception as e:
             logger.error(e)
@@ -85,7 +85,7 @@ class AllAPIs(object):
             return requests.delete(self.base_api_url,
                                    auth=(self.config.username,
                                          self.config.password),
-                                   data=json.dumps(kwargs, ensure_ascii=False)
+                                   data=json.dumps(kwargs, ensure_ascii=False).encode('utf8')
                                    )
         except Exception as e:
             logger.error(e)
